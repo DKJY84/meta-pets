@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pocket Critters</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>🌟 Pocket Critters 🌟</h1>
+            <p class="tagline">Your tiny companion awaits!</p>
+        </header>
+
+        <!-- Pet Selection Screen -->
+        <section id="selection-screen" class="screen active">
+            <h2>Choose Your Critter</h2>
+            <div class="pet-choices">
+                <button class="pet-choice" data-pet="bird">
+                    <div class="pet-preview bird-preview">
+                        <div class="bird">
+                            <div class="bird-body"></div>
+                            <div class="bird-wing"></div>
+                            <div class="bird-head">
+                                <div class="bird-eye"></div>
+                                <div class="bird-beak"></div>
+                            </div>
+                            <div class="bird-tail"></div>
+                            <div class="bird-legs">
+                                <div class="bird-leg"></div>
+                                <div class="bird-leg"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <span>Bird</span>
+                </button>
+                <button class="pet-choice" data-pet="dog">
+                    <div class="pet-preview dog-preview">
+                        <div class="dog">
+                            <div class="dog-body"></div>
+                            <div class="dog-head">
+                                <div class="dog-ear left"></div>
+                                <div class="dog-ear right"></div>
+                                <div class="dog-face">
+                                    <div class="dog-eye left"></div>
+                                    <div class="dog-eye right"></div>
+                                    <div class="dog-nose"></div>
+                                    <div class="dog-mouth"></div>
+                                </div>
+                            </div>
+                            <div class="dog-tail"></div>
+                            <div class="dog-legs">
+                                <div class="dog-leg front-left"></div>
+                                <div class="dog-leg front-right"></div>
+                                <div class="dog-leg back-left"></div>
+                                <div class="dog-leg back-right"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <span>Dog</span>
+                </button>
+                <button class="pet-choice" data-pet="cat">
+                    <div class="pet-preview cat-preview">
+                        <div class="cat">
+                            <div class="cat-body"></div>
+                            <div class="cat-head">
+                                <div class="cat-ear left"></div>
+                                <div class="cat-ear right"></div>
+                                <div class="cat-face">
+                                    <div class="cat-eye left"></div>
+                                    <div class="cat-eye right"></div>
+                                    <div class="cat-nose"></div>
+                                    <div class="cat-whiskers left">
+                                        <div class="whisker"></div>
+                                        <div class="whisker"></div>
+                                        <div class="whisker"></div>
+                                    </div>
+                                    <div class="cat-whiskers right">
+                                        <div class="whisker"></div>
+                                        <div class="whisker"></div>
+                                        <div class="whisker"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cat-tail"></div>
+                            <div class="cat-legs">
+                                <div class="cat-leg front-left"></div>
+                                <div class="cat-leg front-right"></div>
+                                <div class="cat-leg back-left"></div>
+                                <div class="cat-leg back-right"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <span>Cat</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Naming Screen -->
+        <section id="naming-screen" class="screen">
+            <h2>Name Your <span id="pet-type-label">Critter</span></h2>
+            <div class="naming-container">
+                <div id="naming-pet-display" class="pet-display"></div>
+                <div class="name-input-wrapper">
+                    <input type="text" id="pet-name-input" placeholder="Enter a name..." maxlength="20">
+                    <button id="confirm-name-btn" class="btn primary">Let's Go!</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Pet Screen -->
+        <section id="pet-screen" class="screen">
+            <div class="pet-info">
+                <div class="pet-name-display">
+                    <h2 id="display-name">Buddy</h2>
+                    <button id="rename-btn" class="btn-icon" title="Rename">✏️</button>
+                </div>
+                <div class="mood-indicator" id="mood-indicator">😊</div>
+            </div>
+
+            <div class="pet-habitat">
+                <div class="habitat-bg">
+                    <div class="cloud c1"></div>
+                    <div class="cloud c2"></div>
+                    <div class="cloud c3"></div>
+                    <div class="sun"></div>
+                    <div class="ground"></div>
+                    <div class="grass g1"></div>
+                    <div class="grass g2"></div>
+                    <div class="grass g3"></div>
+                </div>
+                <div id="main-pet-display" class="pet-display main-pet"></div>
+                <div id="food-particle" class="food-particle hidden">🍖</div>
+            </div>
+
+            <div class="stats-panel">
+                <div class="stat">
+                    <div class="stat-label">
+                        <span class="stat-icon">🍗</span>
+                        <span>Hunger</span>
+                    </div>
+                    <div class="stat-bar-container">
+                        <div class="stat-bar" id="hunger-bar">
+                            <div class="stat-fill"></div>
+                        </div>
+                        <span class="stat-value" id="hunger-value">100%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button id="feed-btn" class="btn action-btn">
+                    <span class="btn-icon-large">🍖</span>
+                    <span>Feed</span>
+                </button>
+                <button id="change-pet-btn" class="btn secondary">
+                    <span class="btn-icon-large">🔄</span>
+                    <span>Change Pet</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Rename Modal -->
+        <div id="rename-modal" class="modal hidden">
+            <div class="modal-content">
+                <h3>Rename Your Pet</h3>
+                <input type="text" id="rename-input" placeholder="New name..." maxlength="20">
+                <div class="modal-buttons">
+                    <button id="cancel-rename" class="btn secondary">Cancel</button>
+                    <button id="confirm-rename" class="btn primary">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+

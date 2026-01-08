@@ -38,17 +38,10 @@ A delightful virtual pet web app where you can adopt and care for your own digit
 Simply open `index.html` in any modern web browser, or serve it with a local server:
 
 ```bash
-# Using Python
-python -m http.server 8000
-
-# Using Node.js (npx)
 npx serve .
-
-# Using PHP
-php -S localhost:8000
 ```
 
-Then visit `http://localhost:8000`
+Then visit `http://localhost:3000`
 
 ## Screenshots
 

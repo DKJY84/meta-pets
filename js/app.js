@@ -132,6 +132,11 @@ class VirtualPet {
             if (e.key === 'Enter') this.confirmName();
         });
         
+        // Back to selection button
+        document.getElementById('back-to-selection-btn').addEventListener('click', () => {
+            this.goBackToSelection();
+        });
+        
         // Action buttons (event delegation)
         document.getElementById('actions-container').addEventListener('click', (e) => {
             const btn = e.target.closest('[data-action]');
@@ -200,7 +205,14 @@ class VirtualPet {
         document.getElementById('naming-pet-display').innerHTML = getPetTemplate(type);
         
         this.showScreen('naming-screen');
+        document.getElementById('pet-name-input').focus();
         events.emit(EVENTS.PET_SELECTED, { type, petData });
+    }
+    
+    goBackToSelection() {
+        this.petType = null;
+        document.getElementById('pet-name-input').value = '';
+        this.showScreen('selection-screen');
     }
     
     confirmName() {

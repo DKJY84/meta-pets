@@ -5,7 +5,7 @@
 import { CONFIG } from './config.js';
 import { events, EVENTS } from './utils/events.js';
 import { savePet, loadPet, clearPet, calculateOfflineDecay } from './utils/storage.js';
-import { PET_TYPES, getPetTemplate, getPetType } from './pets/registry.js';
+import { PET_TYPES, getPetTemplate, getPetType, getPetColors, getDefaultColor, getPetColor } from './pets/registry.js';
 import { StatsManager, STATS, getStatIds, getStatConfig } from './features/stats.js';
 import { ActionsManager, ACTIONS, getActionIds, getActionConfig } from './features/actions.js';
 
@@ -13,6 +13,7 @@ class VirtualPet {
     constructor() {
         this.petType = null;
         this.petName = '';
+        this.petColor = null;
         
         // Initialize managers
         this.stats = new StatsManager();
@@ -123,6 +124,14 @@ class VirtualPet {
             }
         });
         
+        // Color selection (event delegation)
+        document.getElementById('color-choices').addEventListener('click', (e) => {
+            const btn = e.target.closest('.color-choice');
+            if (btn) {
+                this.selectColor(btn.dataset.color);
+            }
+        });
+        
         // Name confirmation
         document.getElementById('confirm-name-btn').addEventListener('click', () => {
             this.confirmName();
@@ -195,12 +204,89 @@ class VirtualPet {
         this.petType = type;
         const petData = getPetType(type);
         
+        // Set default color
+        this.petColor = getDefaultColor(type);
+        
         // Update naming screen
         document.getElementById('pet-type-label').textContent = petData.name;
         document.getElementById('naming-pet-display').innerHTML = getPetTemplate(type);
         
+        // Render color choices
+        this.renderColorChoices(type);
+        
+        // Apply default color to preview
+        this.applyColorToElement(document.getElementById('naming-pet-display'), type, this.petColor);
+        
         this.showScreen('naming-screen');
         events.emit(EVENTS.PET_SELECTED, { type, petData });
+    }
+    
+    /**
+     * Render color selection buttons for a pet type
+     */
+    renderColorChoices(petType) {
+        const container = document.getElementById('color-choices');
+        container.innerHTML = '';
+        
+        const colors = getPetColors(petType);
+        const defaultColor = getDefaultColor(petType);
+        
+        for (const [colorId, colorData] of Object.entries(colors)) {
+            const button = document.createElement('button');
+            button.className = 'color-choice';
+            button.dataset.color = colorId;
+            button.title = colorData.name;
+            button.setAttribute('aria-label', `Select ${colorData.name} color`);
+            
+            // Set CSS custom properties for the button gradient
+            button.style.setProperty('--color-primary', colorData.primary);
+            button.style.setProperty('--color-secondary', colorData.secondary);
+            button.style.setProperty('--color-accent', colorData.accent);
+            
+            // Mark default as selected
+            if (colorId === defaultColor) {
+                button.classList.add('selected');
+            }
+            
+            container.appendChild(button);
+        }
+    }
+    
+    /**
+     * Handle color selection
+     */
+    selectColor(colorId) {
+        this.petColor = colorId;
+        
+        // Update UI selection state
+        document.querySelectorAll('.color-choice').forEach(btn => {
+            btn.classList.toggle('selected', btn.dataset.color === colorId);
+        });
+        
+        // Apply color to preview pet
+        const previewDisplay = document.getElementById('naming-pet-display');
+        previewDisplay.classList.add('color-changing');
+        this.applyColorToElement(previewDisplay, this.petType, colorId);
+        
+        setTimeout(() => {
+            previewDisplay.classList.remove('color-changing');
+        }, 300);
+    }
+    
+    /**
+     * Apply pet color to a display element
+     */
+    applyColorToElement(element, petType, colorId) {
+        const colorData = getPetColor(petType, colorId);
+        if (!colorData) return;
+        
+        // Find the pet element inside and apply CSS variables
+        const petElement = element.querySelector(`.${petType}`);
+        if (petElement) {
+            petElement.style.setProperty(`--${petType}-primary`, colorData.primary);
+            petElement.style.setProperty(`--${petType}-secondary`, colorData.secondary);
+            petElement.style.setProperty(`--${petType}-accent`, colorData.accent);
+        }
     }
     
     confirmName() {
@@ -232,6 +318,9 @@ class VirtualPet {
         document.getElementById('display-name').textContent = this.petName;
         document.getElementById('main-pet-display').innerHTML = getPetTemplate(this.petType);
         
+        // Apply pet color
+        this.applyColorToElement(document.getElementById('main-pet-display'), this.petType, this.petColor);
+        
         // Update all stat displays
         for (const statId of getStatIds()) {
             const stat = getStatConfig(statId);
@@ -248,6 +337,7 @@ class VirtualPet {
         
         this.petType = null;
         this.petName = '';
+        this.petColor = null;
         
         document.getElementById('pet-name-input').value = '';
         this.showScreen('selection-screen');
@@ -395,6 +485,7 @@ class VirtualPet {
         savePet({
             petType: this.petType,
             petName: this.petName,
+            petColor: this.petColor,
             stats: this.stats.getAllValues()
         });
     }
@@ -411,6 +502,7 @@ class VirtualPet {
         
         this.petType = saved.petType;
         this.petName = saved.petName;
+        this.petColor = saved.petColor || getDefaultColor(saved.petType);
         
         // Initialize managers
         this.stats.setPetType(this.petType);

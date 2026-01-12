@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="styles/components/stats.css">
     <link rel="stylesheet" href="styles/components/actions.css">
     <link rel="stylesheet" href="styles/components/modal.css">
+    <link rel="stylesheet" href="styles/components/colors.css">
     <link rel="stylesheet" href="styles/pets/_shared.css">
     <link rel="stylesheet" href="styles/pets/dog.css">
     <link rel="stylesheet" href="styles/pets/cat.css">
@@ -42,6 +43,15 @@
             <h2>Name Your <span id="pet-type-label">Critter</span></h2>
             <div class="naming-container">
                 <div id="naming-pet-display" class="pet-display"></div>
+                
+                <!-- Color Selection -->
+                <div class="color-selection">
+                    <label class="color-label">Choose a color:</label>
+                    <div id="color-choices" class="color-choices">
+                        <!-- Color options are dynamically generated -->
+                    </div>
+                </div>
+                
                 <div class="name-input-wrapper">
                     <input type="text" id="pet-name-input" placeholder="Enter a name..." maxlength="20">
                     <button id="confirm-name-btn" class="btn primary">Let's Go!</button>

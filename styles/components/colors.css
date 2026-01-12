@@ -1,0 +1,108 @@
+/* ============================================
+   COLOR SELECTION STYLES
+   Color picker component for pet customization
+   ============================================ */
+
+.color-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.color-label {
+    font-size: 1rem;
+    color: var(--text-secondary, #666);
+    font-weight: 500;
+}
+
+.color-choices {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 280px;
+}
+
+.color-choice {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+
+.color-choice::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+}
+
+.color-choice::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.color-choice:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.color-choice:hover::after {
+    opacity: 0.3;
+}
+
+.color-choice.selected {
+    border-color: var(--primary, #6c5ce7);
+    transform: scale(1.15);
+    box-shadow: 0 4px 16px rgba(108, 92, 231, 0.4);
+}
+
+.color-choice.selected::after {
+    content: '✓';
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--primary, #6c5ce7);
+}
+
+/* Tooltip for color name */
+.color-choice[title] {
+    position: relative;
+}
+
+.color-choice:focus {
+    outline: none;
+    border-color: var(--primary, #6c5ce7);
+}
+
+.color-choice:focus-visible {
+    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.3);
+}
+
+/* Animation for color change preview */
+@keyframes colorPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.pet-display.color-changing {
+    animation: colorPulse 0.3s ease;
+}
+

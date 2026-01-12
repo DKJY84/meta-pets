@@ -4,6 +4,11 @@
    ============================================ */
 
 .cat {
+    /* Default colors (can be overridden via inline styles) */
+    --cat-primary: #a0a0a0;
+    --cat-secondary: #808080;
+    --cat-accent: #909090;
+    
     position: relative;
     width: 65px;
     height: 50px;
@@ -19,7 +24,7 @@
     position: absolute;
     width: 40px;
     height: 25px;
-    background: linear-gradient(135deg, #a0a0a0, #808080);
+    background: linear-gradient(135deg, var(--cat-primary), var(--cat-secondary));
     border-radius: 25px 20px 20px 25px;
     top: 20px;
     left: 8px;
@@ -30,7 +35,7 @@
     position: absolute;
     width: 28px;
     height: 26px;
-    background: linear-gradient(135deg, #a0a0a0, #808080);
+    background: linear-gradient(135deg, var(--cat-primary), var(--cat-secondary));
     border-radius: 50% 50% 45% 45%;
     top: 8px;
     left: 32px;
@@ -42,7 +47,7 @@
     height: 0;
     border-left: 7px solid transparent;
     border-right: 7px solid transparent;
-    border-bottom: 14px solid #909090;
+    border-bottom: 14px solid var(--cat-accent);
     top: -10px;
 }
 
@@ -141,7 +146,7 @@
     position: absolute;
     width: 30px;
     height: 8px;
-    background: linear-gradient(90deg, #808080, #909090);
+    background: linear-gradient(90deg, var(--cat-secondary), var(--cat-accent));
     border-radius: 5px;
     top: 22px;
     left: -18px;
@@ -164,7 +169,7 @@
     position: absolute;
     width: 8px;
     height: 12px;
-    background: linear-gradient(180deg, #808080, #909090);
+    background: linear-gradient(180deg, var(--cat-secondary), var(--cat-accent));
     border-radius: 4px;
 }
 

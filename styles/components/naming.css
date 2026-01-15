@@ -15,15 +15,15 @@
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--text-secondary);
+    background: white;
+    color: #333;
     transition: all 0.2s ease;
     margin-bottom: 15px;
 }
 
 .btn-back:hover {
-    background: rgba(255, 255, 255, 0.18);
-    color: var(--text-primary);
+    background: #f0f0f0;
+    color: #111;
     transform: translateX(-3px);
 }
 

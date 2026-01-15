@@ -5,6 +5,57 @@
 // ============================================
 
 export const PET_TYPES = {
+    bird: {
+        name: 'Bird',
+        traits: {
+            hungerDecayMultiplier: 1.0,
+            happinessDecayMultiplier: 0.9,
+            favoriteFood: '🪱'
+        },
+        colors: {
+            sky: {
+                name: 'Sky',
+                primary: '#6ec6ff',
+                secondary: '#4fa3e3',
+                accent: '#ffcc4d'
+            },
+            sunny: {
+                name: 'Sunny',
+                primary: '#ffd166',
+                secondary: '#f4a261',
+                accent: '#ff9f1c'
+            },
+            forest: {
+                name: 'Forest',
+                primary: '#7fc97f',
+                secondary: '#4f9d69',
+                accent: '#2f6f4f'
+            },
+            crimson: {
+                name: 'Crimson',
+                primary: '#ff7a7a',
+                secondary: '#e65c5c',
+                accent: '#b73b3b'
+            }
+        },
+        defaultColor: 'sky',
+        template: `
+            <div class="bird">
+                <div class="bird-body"></div>
+                <div class="bird-wing"></div>
+                <div class="bird-head">
+                    <div class="bird-eye"></div>
+                    <div class="bird-beak"></div>
+                </div>
+                <div class="bird-tail"></div>
+                <div class="bird-legs">
+                    <div class="bird-leg left"></div>
+                    <div class="bird-leg right"></div>
+                </div>
+            </div>
+        `
+    },
+
     dog: {
         name: 'Dog',
         // Pet-specific trait modifiers (multipliers on base values)

@@ -1,0 +1,137 @@
+/* ============================================
+   BIRD STYLES
+   Visual appearance for bird pet type
+   ============================================ */
+
+.bird {
+    /* Default colors (can be overridden via inline styles) */
+    --bird-primary: #6ec6ff;
+    --bird-secondary: #4fa3e3;
+    --bird-accent: #ffcc4d;
+    
+    position: relative;
+    width: 60px;
+    height: 50px;
+    animation: birdBob 1.6s ease-in-out infinite;
+}
+
+@keyframes birdBob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+}
+
+.bird-body {
+    position: absolute;
+    width: 40px;
+    height: 26px;
+    background: linear-gradient(135deg, var(--bird-primary), var(--bird-secondary));
+    border-radius: 20px 22px 18px 20px;
+    top: 20px;
+    left: 8px;
+    box-shadow: inset -4px -4px 8px rgba(0,0,0,0.15);
+}
+
+.bird-wing {
+    position: absolute;
+    width: 24px;
+    height: 16px;
+    background: linear-gradient(135deg, var(--bird-secondary), var(--bird-primary));
+    border-radius: 16px 16px 12px 12px;
+    top: 24px;
+    left: 16px;
+    transform-origin: 4px 8px;
+    animation: wingFlap 0.6s ease-in-out infinite;
+}
+
+@keyframes wingFlap {
+    0%, 100% { transform: rotate(8deg); }
+    50% { transform: rotate(-28deg); }
+}
+
+@keyframes headBob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(2px); }
+}
+
+.bird-head {
+    position: absolute;
+    width: 20px;
+    height: 18px;
+    background: linear-gradient(135deg, var(--bird-primary), var(--bird-secondary));
+    border-radius: 50%;
+    top: 8px;
+    left: 32px;
+    animation: headBob 0.9s ease-in-out infinite;
+}
+
+.bird-eye {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: #fff;
+    border-radius: 50%;
+    top: 6px;
+    left: 6px;
+}
+
+.bird-eye::after {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: #1a1a2e;
+    border-radius: 50%;
+    top: 1px;
+    left: 1px;
+}
+
+.bird-beak {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 6px solid var(--bird-accent);
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    right: -5px;
+    top: 7px;
+}
+
+.bird-tail {
+    position: absolute;
+    width: 16px;
+    height: 10px;
+    background: linear-gradient(180deg, var(--bird-secondary), var(--bird-primary));
+    border-radius: 0 0 10px 10px;
+    top: 24px;
+    left: -4px;
+    transform: rotate(-12deg);
+}
+
+.bird-legs {
+    position: absolute;
+    bottom: -4px;
+    width: 100%;
+}
+
+.bird-leg {
+    position: absolute;
+    width: 3px;
+    height: 10px;
+    background: var(--bird-accent);
+    border-radius: 2px;
+}
+
+.bird-leg.left { left: 22px; }
+.bird-leg.right { left: 30px; }
+
+/* Bird-specific animations */
+.pet-eating .bird {
+    animation: eating 0.3s ease-in-out 3;
+}
+
+/* Hungry state */
+.pet-hungry .bird-body,
+.pet-hungry .bird-head {
+    filter: saturate(0.5);
+}
+
